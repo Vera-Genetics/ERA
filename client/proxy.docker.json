@@ -1,0 +1,58 @@
+{
+  "/api/auth": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/api/graphql": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/api/download_table/*": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/api/*": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/links/*": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/rails": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/sign_in": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/api/sign_out": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/packs/js": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/jobs/*": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/mcp-chat": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/mcp-chat/*": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/curation-chat": {
+    "target": "http://server:3000",
+    "secure": false
+  },
+  "/curation-chat/*": {
+    "target": "http://server:3000",
+    "secure": false
+  }
+}

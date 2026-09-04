@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Re-sync gems when the bind-mounted Gemfile has drifted from the image build.
+bundle check > /dev/null 2>&1 || bundle install
+
+# When booting the web server: ensure the database exists and is migrated, and
+# drop any pid left behind by an unclean shutdown.
+if [ "${1} ${2}" = "bin/rails server" ]; then
+  bundle exec rails db:prepare
+  rm -f tmp/pids/server.pid
+fi
+
+exec "${@}"

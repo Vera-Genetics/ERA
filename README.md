@@ -49,14 +49,44 @@ Angular 20 frontend. The same API that powers the frontend is available for
 anyone to use; the easiest way to explore it is the GraphiQL interface at
 `/api/graphiql`.
 
-### Dependencies
+### Run with Docker (recommended)
 
-* Ruby >= 4.0 (recommended install via rbenv)
-* PostgreSQL >= 14
-* Elasticsearch (required for the test suite and search)
+A full containerised dev environment is provided in `docker-compose.yml`
+(Rails + Sidekiq + Angular + PostgreSQL/pgvector + Redis + Elasticsearch). You
+only need Docker — no local Ruby or Node.
+
+```
+docker compose up --build
+```
+
+The backend creates and loads its database automatically on first boot. Then:
+
+* Frontend: <http://localhost:4200>
+* GraphiQL: <http://localhost:3000/api/graphiql>
+* Sidekiq:  <http://localhost:3000/jobs>
+
+The database starts empty (`server/db/seeds.rb` has no data yet). To make search
+work once you have data: `docker compose exec server bin/rails searchkick:reindex:all`.
+
+After changing the GraphQL schema or a client `.gql` file, regenerate the typed
+client: `docker compose exec client yarn generate-apollo`.
+
+On **Windows**, run these commands from a WSL shell with the repo on the Linux
+filesystem (enable Docker Desktop → Settings → Resources → WSL Integration for
+your distro). Compose against a `\\wsl.localhost\…` path from Windows works but
+file I/O and hot-reload are very slow.
+
+### Run natively
+
+Dependencies:
+
+* Ruby 4.0.1 (recommended install via rbenv)
+* PostgreSQL >= 14 with the `pgvector` extension available
+* Redis
+* Elasticsearch 7.x (the server boots without it, but search and the test suite need it)
 * Node >= 22
 
-### Installing
+Steps:
 
 * In `server/`
     *  `gem install bundler && rbenv rehash`
