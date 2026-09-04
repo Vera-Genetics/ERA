@@ -100,9 +100,15 @@ services:
   client:
     image: node:22-bookworm
     working_dir: /client
-    command: sh -c "yarn install --frozen-lockfile && yarn ng serve --host 0.0.0.0 --port 4200 --proxy-config proxy.docker.json"
+    # Source maps are disabled here: the webpack dev builder needs ~2x the heap
+    # with them on, which OOMs inside the container. Debug against a native
+    # `yarn start` when you need source maps.
+    command: sh -c "yarn install --frozen-lockfile && yarn ng serve --host 0.0.0.0 --port 4200 --proxy-config proxy.docker.json --source-map=false --vendor-chunk=false"
+    init: true
+    shm_size: "1gb"
     environment:
       NG_CLI_ANALYTICS: "false"
+      NODE_OPTIONS: "--max-old-space-size=6144"
     ports:
       - "4200:4200"
     volumes:
