@@ -10,11 +10,7 @@ databases, but developed in the open.
 
 ERA is a **fork of [CIViC](https://civicdb.org/) (Clinical Interpretations of
 Variants in Cancer)**, developed by the Griffith Lab at the McDonnell Genome
-Institute, Washington University School of Medicine. We are deeply grateful for
-their work and for releasing both the data and the platform openly. ERA reuses
-CIViC's curation and moderation model — community curators propose evidence,
-editors review it — and adapts the domain from cancer variants to epigenetic
-reprogramming and longevity.
+Institute.
 
 ## Status
 
