@@ -100,10 +100,11 @@ services:
   client:
     image: node:22-bookworm
     working_dir: /client
-    # Source maps are disabled here: the webpack dev builder needs ~2x the heap
-    # with them on, which OOMs inside the container. Debug against a native
-    # `yarn start` when you need source maps.
-    command: sh -c "yarn install --frozen-lockfile && yarn ng serve --host 0.0.0.0 --port 4200 --proxy-config proxy.docker.json --source-map=false --vendor-chunk=false"
+    # The "docker" configuration (client/angular.json) turns off source maps and
+    # vendor/named chunks - the webpack dev builder needs ~2x the heap with them
+    # on and OOMs in the container. It also points at proxy.docker.json. Use a
+    # native `yarn start` when you need source maps for debugging.
+    command: sh -c "yarn install --frozen-lockfile && yarn ng serve --configuration docker --host 0.0.0.0 --port 4200"
     init: true
     shm_size: "1gb"
     environment:

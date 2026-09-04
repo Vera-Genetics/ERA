@@ -55,6 +55,11 @@
             "namedChunks": true
           },
           "configurations": {
+            "docker": {
+              "sourceMap": false,
+              "vendorChunk": false,
+              "namedChunks": false
+            },
             "production": {
               "index": {
                 "input": "src/index.prod.html",
@@ -103,6 +108,10 @@
             "buildTarget": "main:build"
           },
           "configurations": {
+            "docker": {
+              "buildTarget": "main:build:docker",
+              "proxyConfig": "proxy.docker.json"
+            },
             "production": {
               "buildTarget": "main:build:production"
             }
