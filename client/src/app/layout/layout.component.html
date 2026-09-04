@@ -12,13 +12,13 @@
         class="sidebar-logo"
         [ngClass]="{ 'is-collapsed': isCollapsed }">
         <img
-          src="assets/images/civic-logo_sidebar-expanded.png"
+          src="assets/images/era-logo.png"
           *ngIf="!isCollapsed"
-          alt="CIViC - Clinical Interpretations of Variants in Cancer" />
+          alt="ERA - Epigenetic Reprogramming Atlas for Longevity" />
         <img
-          src="assets/images/civic-logo_sidebar-collapsed.png"
+          src="assets/images/era-logo.png"
           *ngIf="isCollapsed"
-          alt="CIViC - Clinical Interpretations of Variants in Cancer" />
+          alt="ERA - Epigenetic Reprogramming Atlas for Longevity" />
       </div>
     </a>
     <ul
@@ -372,7 +372,7 @@
               nzSelected
               nzMatchRouter>
               <a routerLink="/pages/about">{{
-                isCollapsed ? 'About' : 'About CIViC'
+                isCollapsed ? 'About' : 'About ERA'
               }}</a>
             </li>
             <li
@@ -397,7 +397,7 @@
               nzMatchRouter>
               <a
                 target="_blank"
-                href="https://docs.civicdb.org/">
+                href="https://github.com/Vera-Genetics/ERA">
                 {{ isCollapsed ? 'Docs' : 'Documentation' }}
                 <i
                   nz-icon

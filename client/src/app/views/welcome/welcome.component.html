@@ -1,33 +1,12 @@
 @let rowGutter = [12, 12];
 <nz-row [nzGutter]="rowGutter">
-  <nz-col
-    [nzXs]="24"
-    [nzMd]="16">
-    <cvc-welcome-banner></cvc-welcome-banner>
-  </nz-col>
-  <nz-col
-    [nzXs]="12"
-    [nzMd]="8">
-    <cvc-discover-banner></cvc-discover-banner>
-  </nz-col>
-  <nz-col
-    [nzXs]="12"
-    [nzMd]="8">
-    <cvc-license-banner></cvc-license-banner>
-  </nz-col>
-  <nz-col
-    [nzXs]="0"
-    [nzMd]="8">
-    <cvc-contribute-banner></cvc-contribute-banner>
-  </nz-col>
-  <nz-col
-    [nzXs]="0"
-    [nzMd]="8">
-    <cvc-editor-banner></cvc-editor-banner>
-  </nz-col>
-  <nz-col [nzSpan]="24">
-    <cvc-ai-banner></cvc-ai-banner>
-  </nz-col>
+  <!--
+    ERA rebranding: the CIViC home banners (welcome / discover / license /
+    contribute / editor / AI) render their copy as baked SVG paths and still say
+    "CIViC". Hidden until we redesign them as HTML/CSS cards for ERA.
+    <cvc-welcome-banner>, <cvc-discover-banner>, <cvc-license-banner>,
+    <cvc-contribute-banner>, <cvc-editor-banner>, <cvc-ai-banner>
+  -->
   <nz-col [nzSpan]="24">
     <cvc-site-stats-card></cvc-site-stats-card>
   </nz-col>
@@ -60,30 +39,29 @@
   </nz-col>
   <nz-col [nzSpan]="24">
     <nz-card
-      nzTitle="Medical Disclaimer: This resource is intended for purely research purposes. It should not be used for emergencies or medical or professional advice."
+      nzTitle="Research Disclaimer: This resource is intended for purely research purposes. It should not be used for emergencies or for medical or professional advice."
       nzSize="small"
       class="home-card">
       <p>
-        CIViC is a community-edited forum for discussion and interpretation of
-        peer-reviewed publications pertaining to the clinical relevance of
-        variants (or biomarker alterations) in cancer. These interpretations may
-        include associations between molecular alterations (or lack of
-        alteration) and one or more therapies, diagnoses, prognoses or other
-        treatment decisions. These interpretations of clinical significance (or
-        lack of clinical significance) are purely for research purposes. A
-        finding of no interpretation does not necessarily indicate lack of
-        relevance for any specific variant or biomarker alteration.
-        Interpretations are not presented in ranked order of potential or
-        predicted importance. These interpretations make no promise or guarantee
-        of any clinical benefit (or lack of clinical benefit).
+        ERA is a community-edited forum for discussion and interpretation of
+        peer-reviewed publications pertaining to epigenetic reprogramming and its
+        effects on aging. These interpretations may include associations between
+        reprogramming interventions (or their absence), epigenetic marks, and
+        rejuvenation, lifespan, healthspan or other aging-related outcomes. These
+        interpretations are purely for research purposes. A finding of no
+        interpretation does not necessarily indicate lack of relevance for any
+        specific intervention or mark. Interpretations are not presented in
+        ranked order of potential or predicted importance. These interpretations
+        make no promise or guarantee of any clinical or biological benefit (or
+        lack thereof).
       </p>
       <p>
-        The civicdb.org website does not provide any medical or healthcare
-        products, services or advice, and is not for medical emergencies or
-        urgent situations.
+        This website does not provide any medical or healthcare products,
+        services or advice, and is not for medical emergencies or urgent
+        situations.
         <strong>
-          IF YOU THINK YOU MAY HAVE A MEDICAL EMERGENCY, CALL YOUR DOCTOR OR 911
-          IMMEDIATELY</strong
+          IF YOU THINK YOU MAY HAVE A MEDICAL EMERGENCY, CALL YOUR DOCTOR OR YOUR
+          LOCAL EMERGENCY NUMBER IMMEDIATELY</strong
         >. Information contained on this website is not a substitute for a
         doctor's medical judgment or advice. We recommend that you discuss your
         specific, individual health concerns with your doctor or health care
@@ -98,7 +76,7 @@
         nz-typography
         nzType="secondary"
         style="text-align: right; padding-right: 12px">
-        CIViC {{ release.name }} ({{ release.published_at | date }}) &bull;
+        ERA {{ release.name }} ({{ release.published_at | date }}) &bull;
         <a
           [href]="release.html_url"
           target="_blank">
@@ -106,7 +84,7 @@
         </a>
         &bull;
         <a
-          href="https://github.com/griffithlab/civic-v2/releases/"
+          href="https://github.com/Vera-Genetics/ERA/releases/"
           target="_blank">
           History
         </a>

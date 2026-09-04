@@ -8,7 +8,7 @@ export class TitleService {
   constructor(private title: Title, private meta: Meta) {}
 
   updateTitle(title: string): void {
-    this.title.setTitle((title += ' | CIViC'))
+    this.title.setTitle((title += ' | ERA'))
   }
 
   updateMetaTags(metaTags: MetaDefinition[]): void {

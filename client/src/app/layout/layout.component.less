@@ -80,20 +80,24 @@ nz-sider {
   }
 }
 // BRANDING
+// The ERA logo PNG has the brand's dark teal baked in as its background; the
+// sider/header share that exact color (@layout-header-background) so the image
+// blends into the chrome instead of sitting on a visible tile.
 .sidebar-logo {
-  height: 90px;
   margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
   img {
-    width: 133px;
+    width: 100%;
+    max-width: 116px;
     height: auto;
-    margin: 12px 16px;
+    margin: 6px 0;
     transition: all 0.2s;
   }
   &.is-collapsed {
     img {
-      width: 40px;
-      height: auto;
-      margin: 12px 20px;
+      max-width: 52px;
+      margin: 6px 0;
       transition: all 0.2s;
     }
   }

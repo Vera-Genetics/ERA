@@ -30,7 +30,7 @@ export class WelcomeComponent implements OnInit {
     this.release$ = this.http
       .get<
         GithubRelease[]
-      >('https://api.github.com/repos/griffithlab/civic-v2/releases?per_page=1')
+      >('https://api.github.com/repos/Vera-Genetics/ERA/releases?per_page=1')
       .pipe(map((data) => data[0]))
   }
 }
