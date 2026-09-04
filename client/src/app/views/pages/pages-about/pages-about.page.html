@@ -1,6 +1,6 @@
 <nz-page-header class="site-page-header">
   <!--title-->
-  <nz-page-header-title> About CIViC </nz-page-header-title>
+  <nz-page-header-title> About ERA </nz-page-header-title>
 
   <!--content-->
   <nz-page-header-content>
@@ -8,15 +8,17 @@
       <nz-col [nzSpan]="24">
         <nz-card
           nzType="inner"
-          nzTitle="Why Use CIViC - Our Elevator Pitch"
+          nzTitle="Why ERA - Our Elevator Pitch"
           style="width: 100%">
-          We developed a free, expert-curated web resource that helps doctors
-          identify the best treatment options for cancer patients based on their
-          unique tumor DNA. Cancer is driven by DNA mutations. Using these
-          mutations to guide patient care requires experts to actively review
-          and summarize the latest scientific advances. Our easily searchable
-          resource coordinates these efforts. The free and open design of our
-          database shares expert cancer mutation knowledge with everyone.
+          ERA is a free, community-curated web resource for the biological and
+          clinical interpretation of epigenetic reprogramming and its effects on
+          aging. Partial reprogramming, chemical cocktails, and epigenome editing
+          can reset aspects of cellular age, and the literature describing which
+          interventions do what &mdash; and under which conditions &mdash; is
+          growing rapidly. Today that knowledge sits scattered across papers and
+          private notes, so effort is endlessly repeated. ERA centralizes it:
+          structured, versioned evidence that anyone can read and that the
+          community reviews together.
         </nz-card>
       </nz-col>
       <nz-col
@@ -31,49 +33,34 @@
           nzTitle="Mission Statement"
           style="width: 100%">
           <p>
-            Precision medicine refers to the use of prevention and treatment
-            strategies that are tailored to the unique features of each
-            individual and their disease. In the context of cancer this might
-            involve the identification of specific variants shown to predict
-            response to a targeted therapy. The biomedical literature describing
-            associations between genetic variants and clinically relevant
-            outcomes is large and growing rapidly. Currently variant
-            interpretations exist largely in private or encumbered databases
-            resulting in extensive repetition of effort. Effective precision
-            medicine requires this information to be centralized, debated, and
-            interpreted for application in a clinical setting. CIViC is an open
-            access, open source, community-driven web resource for Clinical
-            Interpretation of Variants in Cancer, available online at
-            <a
-              href="https://www.civicdb.org"
-              target="_blank"
-              >civicdb.org</a
-            >. Our goal is to enable precision medicine by providing an
-            educational forum for dissemination of knowledge and active
-            discussion of the clinical significance of cancer genome
-            alterations.
+            ERA is an open access, open source, community-driven knowledgebase
+            for the Epigenetic Reprogramming Atlas for Longevity. Our goal is to
+            centralize, debate, and curate the evidence linking reprogramming
+            factors, chemical cocktails, delivery strategies, and epigenetic
+            marks to rejuvenation, lifespan, and healthspan outcomes &mdash; so
+            that this knowledge is developed in the open rather than repeatedly
+            rebuilt inside private databases.
           </p>
           <p>
-            All content created in CIViC is, and will continue to be, freely
-            available, without restriction with a
+            All content created in ERA is, and will continue to be, freely
+            available, without restriction, under a
             <a
               href="https://creativecommons.org/publicdomain/zero/1.0/"
               target="_blank"
-              >Public Domain License</a
-            >. Anyone can contribute to CIViC by simply registering for an
-            account. Users join the community with “Curator” level privileges
-            that allow them to comment or propose additions or revisions on any
-            knowledge in CIViC. Proposed additions and revisions are then
-            reviewed by users with “Editor” or “Admin” level privileges before
-            gaining “Accepted” status. Content that has been Submitted but not
-            yet Accepted should be interpreted and used with caution. Community
-            Curators work together with Editors towards comprehensive and
-            accurate interpretations of the clinical relevance of variants in
-            cancer.
+              >Public Domain (CC0) License</a
+            >. Anyone can contribute by registering for an account. Users join
+            the community with &ldquo;Curator&rdquo; level privileges that allow
+            them to comment on or propose additions and revisions to any content
+            in ERA. Proposed additions and revisions are then reviewed by users
+            with &ldquo;Editor&rdquo; or &ldquo;Admin&rdquo; level privileges
+            before gaining &ldquo;Accepted&rdquo; status. Content that has been
+            submitted but not yet accepted should be interpreted and used with
+            caution. Community Curators work together with Editors towards
+            comprehensive and accurate interpretations.
           </p>
           <img
-            src="assets/images/CIViC_principles__shorter.png"
-            alt="CIViC principles"
+            src="assets/images/era_principles.png"
+            alt="ERA principles: community consensus, transparency, computationally accessible, freely accessible, open license, interdisciplinary"
             style="width: 100%" />
         </nz-card>
       </nz-col>
@@ -86,108 +73,78 @@
         nzXXl="12">
         <nz-card
           nzType="inner"
-          nzTitle="Funding"
+          nzTitle="Support ERA"
           style="width: 100%">
           <p>
-            The CIViC project and ClinGen Somatic Cancer Biomedical
-            Knowledgebase are currently supported by the National Institutes of
-            Health (NIH) National Cancer Institute (NCI) under Award Numbers
-            U24CA305456, U24CA275783, and R50CA305824, including a funding
-            supplement from the NIH Office of Data Science Strategy (ODSS).
-            CIViC is also supported by the Washington University Institute of
-            Clinical and Translational Sciences grant UL1TR002345 from the
-            National Center for Advancing Translational Sciences (NCATS) of the
-            NIH. The content of this website is solely the responsibility of the
-            creators and does not necessarily represent the official views of
-            the NIH or other funding sources.
+            ERA is an independent, unfunded, volunteer-run project. It is not
+            affiliated with any company or institution, and curated content will
+            always remain free to access anonymously, without login, with no
+            fees introduced.
           </p>
-          <h2>Current</h2>
-          @for (funding of currentFunding; track currentFunding) {
-            <nz-descriptions
-              [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }"
-              [nzTitle]="title"
-              nzLayout="horizontal"
-              nzSize="small"
-              nzBordered="true">
-              <nz-descriptions-item
-                nzTitle="Source"
-                nzSpan="2">
-                {{ funding.source }}
-              </nz-descriptions-item>
-              <nz-descriptions-item
-                nzTitle="Description"
-                nzSpan="2">
-                {{ funding.description }}
-              </nz-descriptions-item>
-              <nz-descriptions-item
-                nzTitle="Number"
-                nzSpan="1">
-                {{ funding.awardNumber }}
-              </nz-descriptions-item>
-              <nz-descriptions-item
-                nzTitle="Timeframe"
-                nzSpan="1">
-                {{ funding.timeframe }}
-              </nz-descriptions-item>
-            </nz-descriptions>
-            <ng-template #title>
-              <h3 style="color: #333; margin-bottom: 0">
-                <strong>Awardee:</strong> {{ funding.awardee }}
-              </h3>
-            </ng-template>
-          }
-          <br />
-          <h2>Past</h2>
           <p>
-            Past funding details are available on the CIViC documentation
+            <strong>We are looking for contributors</strong> &mdash; aging and
+            epigenetics researchers to help design the evidence model and curate
+            the first entries, curators to enter structured evidence from the
+            reprogramming literature, and developers (Rails / GraphQL / Angular)
+            to help build the platform. Open an issue or start a discussion on
             <a
-              href="https://civic.readthedocs.io/en/latest/about/acknowledgements.html#past"
-              target="_blank">
-              Acknowledgements page.
-            </a>
+              href="https://github.com/Vera-Genetics/ERA"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >.
+          </p>
+          <p>
+            If you would like to support the project financially, you can donate
+            ETH (or any EVM-chain token) to:
+          </p>
+          <p>
+            <code
+              style="
+                display: block;
+                padding: 8px;
+                background: #f5f5f5;
+                border-radius: 4px;
+                word-break: break-all;
+              ">
+              0xDeCda8d1139e34Fb85B55eeAE23Dd08280475C1C
+            </code>
           </p>
         </nz-card>
       </nz-col>
       <nz-col [nzSpan]="24">
-        <cvc-preferred-citations></cvc-preferred-citations>
-      </nz-col>
-      <nz-col
-        nzXs="24"
-        nzSm="24"
-        nzMd="24"
-        nzXXl="8">
         <nz-card
           nzType="inner"
           nzTitle="Acknowledgements"
           style="width: 100%">
-          <img
-            src="assets/images/nih-nci-logo.png"
-            alt="NHI - National Cancer Institute"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/icts-logo.png"
-            alt="Washington University - Institute for Clinical and Translational Sciences"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/ga4gh-logo.png"
-            alt="Global Alliance for Genomics & Health"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/GCBR-Logo-RGB.png"
-            alt="Global Code Biodata Resources"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/nih-nhgri-logo.png"
-            alt="NHI - National Human Genome Research Institute"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/wustl-logo.png"
-            alt="Washington University in St. Louis"
-            style="height: 50px; margin: 12px" />
-          <img
-            src="assets/images/cdi-logo.jpeg"
-            alt="Washington University - Children's Discovery Institute"
-            style="height: 50px; margin: 12px" />
+          <p>
+            ERA is a fork of
+            <a
+              href="https://civicdb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              >CIViC</a
+            >
+            (Clinical Interpretation of Variants in Cancer), developed by the
+            Griffith Lab at the McDonnell Genome Institute, Washington University
+            School of Medicine. We are grateful for their work and for releasing
+            both the data and the platform openly. ERA reuses CIViC's curation
+            and moderation model and adapts the domain from cancer variants to
+            epigenetic reprogramming and longevity.
+          </p>
+          <p>
+            If you use ERA, please also acknowledge and cite the original CIViC
+            publication:
+            <a
+              href="https://www.nature.com/articles/ng.3774"
+              target="_blank"
+              rel="noopener noreferrer">
+              Griffith, M., Spies, N., Krysiak, K. <em>et al.</em> CIViC is a
+              community knowledgebase for expert crowdsourcing the clinical
+              interpretation of variants in cancer.
+              <cite>Nat Genet</cite> 49, 170&ndash;174 (2017).
+            </a>
+          </p>
         </nz-card>
       </nz-col>
     </nz-row>
