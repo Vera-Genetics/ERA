@@ -100,6 +100,11 @@ Steps:
     *  `yarn install`
     *  `yarn start` will start the dev server at `127.0.0.1:4200` and proxy API requests to the backend
 
+### Deploying to production
+
+See [`DEPLOY.md`](DEPLOY.md) for the self-hosted production setup (Docker +
+Cloudflare Tunnel), currently running at [eradb.org](https://eradb.org).
+
 ### Development
 
 The backend Rails application uses `rubocop` for linting and formatting, `brakeman` for vulnerability scanning.
