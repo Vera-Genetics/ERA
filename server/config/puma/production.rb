@@ -1,20 +1,15 @@
-app_dir = "/var/www/civic/current"
-max_threads_count = 3
-min_threads_count = 3
+# Docker-friendly Puma config: binds TCP via PORT/-p rather than the Capistrano
+# deploy's unix socket + hardcoded /var/www/civic/current directory (which
+# doesn't exist in a container and crashed boot with Dir.chdir ENOENT).
+#
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
-bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-pidfile "#{app_dir}/tmp/pids/puma.pid"
-state_path "#{app_dir}/tmp/pids/puma.state"
-directory "#{app_dir}/"
-
-activate_control_app "unix://#{app_dir}/tmp/sockets/pumactl.sock"
-
-stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
-
-workers 6
-preload_app!
-
+# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# The -p flag passed on the CMD line (see server/Dockerfile.production) takes
+# precedence over this when present.
+port ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -26,17 +21,15 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
-# Workers do not work on JRuby or Windows (both of which do not support
-# processes).
 #
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
 #
-# preload_app!
+preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
