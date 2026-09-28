@@ -47,6 +47,9 @@ RUN bundle install && \
     rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
 
 COPY server/ .
+# Don't rely on git having preserved the executable bit (it keeps getting lost
+# across Windows/macOS checkouts of this repo) - set it explicitly instead.
+RUN chmod +x bin/docker-entrypoint bin/rails
 # Overlay the Angular build from stage 1 (COPY server/ above already brought
 # in the stale git-committed public/, this replaces it with the fresh build).
 COPY --from=client-build /app/server/public ./public
