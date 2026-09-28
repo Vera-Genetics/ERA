@@ -1,0 +1,116 @@
+# Production deployment for ERA (Mac Mini + Colima + Cloudflare Tunnel).
+#
+# A single Rails container serves both the GraphQL API and the pre-built
+# Angular SPA (baked into server/public at image-build time) - the same
+# single-origin topology CIViC itself deploys with. cloudflared runs natively
+# on the host (already configured for eradb.org in
+# ~/.cloudflared/config.yml) and reaches this stack via 127.0.0.1:3000;
+# nothing here is published beyond localhost, so no ports are opened on the
+# network/router.
+#
+#   cp .env.production.example .env.production   # fill in real secrets, keep out of git
+#   docker compose -f docker-compose.prod.yml --env-file .env.production up -d --build
+#
+# First boot creates and migrates the database automatically
+# (server/bin/docker-entrypoint runs `bin/rails db:prepare`).
+
+name: era-production
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: era
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.production}
+      POSTGRES_DB: era_production
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U era"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  elasticsearch:
+    image: elasticsearch:7.17.22
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile.production
+    restart: unless-stopped
+    environment: &rails-env
+      RAILS_ENV: production
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?set SECRET_KEY_BASE in .env.production}
+      DATABASE_URL: postgres://era:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.production}@db:5432/era_production
+      REDIS_URL: redis://redis:6379/1
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      CIVIC_API_HMAC_KEY: ${CIVIC_API_HMAC_KEY:?set CIVIC_API_HMAC_KEY in .env.production}
+      # Empty string is fine (and intentional) until each OAuth app exists -
+      # the initializer only falls back to Rails credentials (which this
+      # fork cannot decrypt) when the env var is literally unset.
+      CIVIC_GITHUB_KEY: ${CIVIC_GITHUB_KEY:-}
+      CIVIC_GITHUB_SECRET: ${CIVIC_GITHUB_SECRET:-}
+      CIVIC_GOOGLE_KEY: ${CIVIC_GOOGLE_KEY:-}
+      CIVIC_GOOGLE_SECRET: ${CIVIC_GOOGLE_SECRET:-}
+      CIVIC_ORCID_KEY: ${CIVIC_ORCID_KEY:-}
+      CIVIC_ORCID_SECRET: ${CIVIC_ORCID_SECRET:-}
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - storage-data:/rails/storage
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:3000/api/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 30s
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: server/Dockerfile.production
+    command: bundle exec sidekiq
+    restart: unless-stopped
+    environment: *rails-env
+    volumes:
+      - storage-data:/rails/storage
+    depends_on:
+      - server
+
+volumes:
+  db-data:
+  redis-data:
+  es-data:
+  storage-data:

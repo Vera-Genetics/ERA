@@ -1,1 +1,6 @@
 docs/build
+
+# Deployment secrets - never commit real values, only .env.*.example
+.env
+.env.*
+!.env.*.example

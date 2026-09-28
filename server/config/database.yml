@@ -18,18 +18,18 @@ test:
   password: 'ci'
   <% end %>
 
+# production/staging pulled username+password from Rails credentials upstream,
+# but that requires the original CIViC master key, which a fork does not have.
+# Set DATABASE_URL (or DATABASE_HOST/USERNAME/PASSWORD, from `default` above)
+# instead.
 production:
   <<: *default
   pool: 20
-  username: <%=  Rails.application.credentials.dig(:database, :username) %>
-  password: <%=  Rails.application.credentials.dig(:database, :password) %>
 
 staging:
   <<: *default
   pool: 20
   database: civic_staging
-  username: <%=  Rails.application.credentials.dig(:database, :username) %>
-  password: <%=  Rails.application.credentials.dig(:database, :password) %>
 
 headless:
   <<: *default
