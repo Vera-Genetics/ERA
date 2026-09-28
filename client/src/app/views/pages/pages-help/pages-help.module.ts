@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 import { PagesHelpPage } from './pages-help.page'
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header'
 import { NzGridModule } from 'ng-zorro-antd/grid'
 import { NzSpaceModule } from 'ng-zorro-antd/space'
 import { NzCardModule } from 'ng-zorro-antd/card'
 import { NzInputModule } from 'ng-zorro-antd/input'
-import { CvcPreferredCitationsComponent } from '@app/components/shared/preferred-citations/preferred-citations.component'
 
 @NgModule({
   declarations: [PagesHelpPage],
   imports: [
     CommonModule,
+    RouterModule,
     NzInputModule,
     NzPageHeaderModule,
     NzGridModule,
     NzSpaceModule,
     NzCardModule,
-    CvcPreferredCitationsComponent,
   ],
 })
 export class PagesHelpModule {}
