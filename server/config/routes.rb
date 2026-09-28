@@ -48,4 +48,13 @@ Rails.application.routes.draw do
   require "sidekiq/cron/web"
   mount Sidekiq::Web, at: "/jobs", constraints: UserLoggedInConstraint.new
   mount SolidErrors::Engine, at: "/errors", constraints: UserLoggedInConstraint.new
+
+  # Catch-all for Angular client-side routes (e.g. /welcome after sign-in,
+  # /evidence, /variants/123, ...). The real CIViC deploy has nginx fall back
+  # to index.html for anything that isn't a known server route; this Docker
+  # deploy has no nginx in front, so Rails needs to do that fallback itself.
+  # Must stay last - only unmatched GETs reach it.
+  get "*path", to: "static#index", constraints: lambda { |req|
+    !req.path.start_with?("/api", "/jobs", "/errors", "/chats")
+  }
 end
