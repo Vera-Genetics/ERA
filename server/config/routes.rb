@@ -53,8 +53,11 @@ Rails.application.routes.draw do
   # /evidence, /variants/123, ...). The real CIViC deploy has nginx fall back
   # to index.html for anything that isn't a known server route; this Docker
   # deploy has no nginx in front, so Rails needs to do that fallback itself.
-  # Must stay last - only unmatched GETs reach it.
+  # Must stay last - only unmatched GETs reach it. Excludes /rails (Active
+  # Storage/Action Text/Action Mailbox's own engine routes, e.g. profile image
+  # blobs - these are appended after routes.rb and this catch-all would
+  # otherwise shadow them) and /cable (Action Cable).
   get "*path", to: "static#index", constraints: lambda { |req|
-    !req.path.start_with?("/api", "/jobs", "/errors", "/chats")
+    !req.path.start_with?("/api", "/jobs", "/errors", "/chats", "/rails", "/cable")
   }
 end
