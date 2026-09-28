@@ -120,6 +120,10 @@ end
 
 gem "csv", "~> 3.3"
 
+# no longer a Ruby default gem as of 4.0; mini_magick (via active_storage)
+# requires it but doesn't declare the dependency itself
+gem "benchmark"
+
 # rate limit cache
 gem "redis", "~> 5.4"
 
